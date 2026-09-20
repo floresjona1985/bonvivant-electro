@@ -1,0 +1,27 @@
+BONVIVANT ELECTRO
+=================
+
+TIENDA (cliente)
+- Archivo: index.html
+- Clave: BV128
+- El pedido llega a WhatsApp 11 2185-7252
+- En el mensaje aparece la línea BVLOAD con códigos
+
+APP ADMINISTRADOR (solo vos)
+- Archivo: admin.html
+- Clave del panel: BVADMIN
+- Es UNA sola pantalla:
+  izquierda = pedido del cliente
+  derecha = Printech11 adentro de la misma app
+
+Uso
+1. Te llega el WhatsApp.
+2. Abrís admin.html
+3. Pestaña Sesión: ponés tu clave de Printech11 y "Entrar a Printech11"
+   (se loguea en el recuadro de la derecha, no hace falta otra ventana)
+4. Pestaña Pedido: pegás el WhatsApp → Leer pedido
+5. Controlás códigos y cantidades
+6. "Cargar pedido en Printech11"
+7. A la derecha se ve Ver pedido para confirmar
+
+Si el carrito sale vacío, la sesión no estaba abierta. Repetí el paso 3.

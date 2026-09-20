@@ -1,0 +1,30 @@
+PUNTO DE GUARDADO — 20 sep 2026
+================================
+
+Marca: Bonvivant Electro
+Estilo: fondo negro, neón oro/rojo, bombita + texto BONVIVANT ELECTRO
+Tienda clave: BV128 (la misma para todos los clientes)
+Panel admin clave: BVADMIN
+WhatsApp pedidos: 11 2185-7252 (5491121857252)
+Markup: +100% (precio x2) — NO se muestra el texto "+100%" en la tienda
+Proveedor: printech11.com (clave mayorista th11 — no va en la tienda)
+
+Hecho
+- Tienda index.html con catálogo amplio (858 productos, casi todos los rubros de Printech11, precios x2)
+- Observaciones por producto (color, etc.) viajan al WhatsApp
+- Carrito separado por dispositivo
+- Pedido a WhatsApp con línea BVLOAD
+- admin.html: panel dueño, login a Printech11 en el mismo recuadro, carga de códigos
+
+Pendiente para retomar
+- Publicar online (hosting) para que los clientes entren con un link
+- Actualizar precios solo contra el catálogo origen (cron)
+- Que el pedido aparezca solo en el admin sin pegar el WhatsApp (hace falta servidor)
+- Logo original de la gráfica si quieren el archivo oficial en vez de la bombita dibujada
+
+Archivos
+- index.html   tienda
+- admin.html   panel dueño
+- products.json
+- logo-bonvivant.svg
+- LEEME.txt / ESTADO.txt
