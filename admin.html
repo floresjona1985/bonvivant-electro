@@ -6,103 +6,81 @@
 <title>Panel dueño · Bonvivant Electro</title>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Orbitron:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#070709;--panel:#101014;--gold:#f7ba00;--cream:#edeec7;--red:#e20000;--muted:#9a9678;--line:rgba(247,186,0,.22)}
+:root{--bg:#070709;--panel:#101014;--gold:#f7ba00;--cream:#edeec7;--muted:#9a9678;--line:rgba(247,186,0,.22)}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;background:var(--bg);color:#f4f1e4;font-family:Outfit,system-ui,sans-serif;overflow:hidden}
+body{background:var(--bg);color:#f4f1e4;font-family:Outfit,system-ui,sans-serif;min-height:100vh}
 a{color:var(--gold)}
-#gate{min-height:100%;display:flex;align-items:center;justify-content:center;padding:24px}
-.gate-card{width:min(420px,100%);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px}
-h1{font-family:Orbitron,sans-serif;color:var(--gold);letter-spacing:.06em}
-.muted{color:var(--muted);font-size:13px;margin:6px 0 14px}
+.wrap{max-width:720px;margin:0 auto;padding:20px 16px 50px}
+h1{font-family:Orbitron,sans-serif;color:var(--gold);letter-spacing:.06em;font-size:20px}
+.muted{color:var(--muted);font-size:14px;margin:8px 0 14px;line-height:1.45}
 label{display:block;font-size:12px;color:var(--muted);margin:10px 0 4px}
 input,textarea{width:100%;background:#0b0b0f;border:1px solid var(--line);color:var(--cream);border-radius:10px;padding:10px 12px}
-textarea{min-height:110px;resize:vertical}
-.btn{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--gold),#ffd24a);color:#161400;font-weight:800;border:0;border-radius:10px;padding:11px 14px;cursor:pointer;width:100%;margin-top:8px}
+textarea{min-height:120px;resize:vertical}
+.btn{display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(90deg,var(--gold),#ffd24a);color:#161400;font-weight:800;border:0;border-radius:10px;padding:12px 14px;cursor:pointer;width:100%;margin-top:8px}
 .btn-ghost{background:transparent;color:var(--gold);border:1px solid var(--line)}
-.btn-sm{width:auto;padding:7px 10px;margin:0;font-size:12px}
+.btn-sm{width:auto;padding:7px 10px;margin:0}
 .err{color:#ff8b8b;font-size:13px;margin-top:8px}
-.app{display:none;height:100%;grid-template-columns:380px 1fr;grid-template-rows:56px 1fr}
-.app.on{display:grid}
-.top{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;padding:0 14px;border-bottom:1px solid var(--line);background:#0c0c10}
-.top b{color:var(--gold);font-family:Orbitron,sans-serif;letter-spacing:.08em;font-size:13px}
-.side{border-right:1px solid var(--line);overflow:auto;padding:12px;background:#0b0b0e}
-iframe{width:100%;height:100%;border:0;background:#fff}
-.tabs{display:flex;gap:6px;margin-bottom:10px}
-.tab{flex:1;border:1px solid var(--line);background:#141418;color:var(--cream);border-radius:999px;padding:7px;cursor:pointer;font-size:12px}
-.tab.on{background:var(--gold);color:#161400;font-weight:700}
-.block{display:none}
-.block.on{display:block}
-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}
+.card{background:#101014;border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}
+#app{display:none}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
 th,td{border-bottom:1px solid var(--line);padding:6px 3px;text-align:left}
+.row2{display:grid;grid-template-columns:1fr 70px 40px;gap:6px}
+.log{white-space:pre-wrap;font-size:12px;color:#cfc9a3;margin-top:10px}
 .ok{color:#8dffb3}
 .wait{color:var(--gold)}
-.row2{display:grid;grid-template-columns:1fr 70px 36px;gap:6px;margin-top:8px}
-.log{white-space:pre-wrap;font-size:11px;color:#cfc9a3;margin-top:8px;min-height:32px}
-@media(max-width:860px){
-  .app.on{grid-template-columns:1fr;grid-template-rows:48px auto 55vh}
-  .side{max-height:42vh}
-}
+ol{padding-left:18px;color:var(--muted);font-size:14px;line-height:1.5}
 </style>
 </head>
 <body>
-<section id="gate">
-  <div class="gate-card">
-    <h1>PANEL DUEÑO</h1>
-    <p class="muted">Una sola aplicación: ves el pedido del cliente y cargás Printech11 al lado, sin cambiar de ventana.</p>
-    <label>Clave del panel</label>
-    <input id="adminPass" type="password" placeholder="CLAVE PANEL">
-    <button class="btn" onclick="enter()">Entrar</button>
-    <div class="err" id="gateErr"></div>
-  </div>
-</section>
-
-<div class="app" id="app">
-  <div class="top">
-    <b>BONVIVANT · ADMIN</b>
-    <span class="muted" style="margin:0">Pedido izquierda · Printech11 derecha</span>
-  </div>
-  <aside class="side">
-    <div class="tabs">
-      <button class="tab on" id="t1" onclick="tab('pedido')">Pedido</button>
-      <button class="tab" id="t2" onclick="tab('sesion')">Sesión</button>
-    </div>
-    <div class="block on" id="pedido">
-      <p class="muted">Pegá el WhatsApp. La app lee códigos y cantidades.</p>
-      <label>Mensaje del cliente</label>
-      <textarea id="raw" placeholder="Pegá acá el pedido..."></textarea>
-      <button class="btn btn-ghost" onclick="parseRaw()">Leer pedido</button>
-      <div id="cliente" class="muted"></div>
-      <table>
-        <thead><tr><th>Código</th><th>Cant</th><th>Estado</th></tr></thead>
-        <tbody id="rows"></tbody>
-      </table>
-      <label>Sumar un código a mano</label>
-      <div class="row2">
-        <input id="addCode" placeholder="R-I1278">
-        <input id="addQty" value="1">
-        <button class="btn btn-sm" onclick="addManual()">+</button>
-      </div>
-      <label>Comentario en Printech (solo letras)</label>
-      <input id="comentario" maxlength="50" value="Bonvivant">
-      <button class="btn" onclick="cargarTodo()">Cargar pedido en Printech11</button>
-      <button class="btn btn-ghost" onclick="verPedido()">Ir a Ver pedido</button>
-      <div class="log" id="log"></div>
-    </div>
-    <div class="block" id="sesion">
-      <p class="muted">Te logueás acá. La sesión queda en el recuadro de la derecha.</p>
-      <label>Clave mayorista de Printech11</label>
-      <input id="provPass" type="password" placeholder="tu clave de printech11">
-      <button class="btn" onclick="loginProveedor()">Entrar a Printech11</button>
-      <button class="btn btn-ghost" onclick="setFrame('https://www.printech11.com/')">Abrir inicio</button>
-      <button class="btn btn-ghost" onclick="verPedido()">Abrir Ver pedido</button>
-      <p class="muted" style="margin-top:12px">La clave se guarda solo en este aparato.</p>
-    </div>
-  </aside>
-  <iframe name="printechFrame" id="printechFrame" src="https://www.printech11.com/" title="Printech11"></iframe>
+<div class="wrap" id="gate">
+  <h1>PANEL DUEÑO</h1>
+  <p class="muted">Acá ves el pedido y lo cargás en Printech11.</p>
+  <label>Clave del panel</label>
+  <input id="adminPass" type="password" placeholder="CLAVE PANEL">
+  <button class="btn" onclick="enter()">Entrar</button>
+  <div class="err" id="gateErr"></div>
 </div>
+
+<div class="wrap" id="app">
+  <h1>CARGAR EN PRINTECH11</h1>
+  <div class="card">
+    <ol>
+      <li>Tocá <b>Abrir Printech11</b>. Se abre su página.</li>
+      <li>En esa ventana iniciá sesión con tu clave mayorista.</li>
+      <li>Volvé acá, pegá el WhatsApp y tocá <b>Leer pedido</b>.</li>
+      <li>Tocá <b>Cargar pedido</b>. Los códigos van a esa misma ventana.</li>
+    </ol>
+    <button class="btn" onclick="abrirPrintech()">Abrir Printech11</button>
+  </div>
+
+  <div class="card">
+    <label>Mensaje del cliente (WhatsApp)</label>
+    <textarea id="raw" placeholder="Pegá acá el pedido..."></textarea>
+    <button class="btn btn-ghost" onclick="parseRaw()">Leer pedido</button>
+    <div id="cliente" class="muted"></div>
+    <table>
+      <thead><tr><th>Código</th><th>Cant</th><th>Estado</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <label>Sumar un código a mano</label>
+    <div class="row2">
+      <input id="addCode" placeholder="R-I1278">
+      <input id="addQty" value="1">
+      <button class="btn btn-sm" onclick="addManual()">+</button>
+    </div>
+    <label>Comentario en Printech (solo letras)</label>
+    <input id="comentario" maxlength="50" value="Bonvivant">
+    <button class="btn" onclick="cargarTodo()">Cargar pedido en Printech11</button>
+    <button class="btn btn-ghost" onclick="verPedido()">Ir a Ver pedido</button>
+    <div class="log" id="log"></div>
+  </div>
+</div>
+
 <script>
 const ADMIN='BVADMIN';
 let items=[];
+let win=null;
+
 if(sessionStorage.getItem('bv_admin')==='1') openApp();
 function enter(){
   if((document.getElementById('adminPass').value||'').trim()===ADMIN){
@@ -111,26 +89,27 @@ function enter(){
 }
 function openApp(){
   document.getElementById('gate').style.display='none';
-  document.getElementById('app').classList.add('on');
-  const saved=localStorage.getItem('bv_prov_pass');
-  if(saved) document.getElementById('provPass').value=saved;
+  document.getElementById('app').style.display='block';
 }
-function tab(name){
-  document.getElementById('pedido').classList.toggle('on', name==='pedido');
-  document.getElementById('sesion').classList.toggle('on', name==='sesion');
-  document.getElementById('t1').classList.toggle('on', name==='pedido');
-  document.getElementById('t2').classList.toggle('on', name==='sesion');
-}
-function setFrame(url){ document.getElementById('printechFrame').src=url; }
 function log(m){ document.getElementById('log').textContent=m; }
 function lettersOnly(s){ return (s||'').replace(/[^a-zA-ZáéíóúÁÉÍÓÚñÑ ]/g,'').slice(0,50); }
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+function abrirPrintech(){
+  win=window.open('https://www.printech11.com/','printechWin','width=1100,height=800');
+  if(!win){ log('El navegador bloqueó la ventana. Permití pop-ups para este sitio.'); return; }
+  log('Ventana de Printech11 abierta. Logueate ahí y volvé.');
+}
+function verPedido(){
+  win=window.open('https://www.printech11.com/ver_compra.php','printechWin','width=1100,height=800');
+}
+
 function renderRows(){
   document.getElementById('rows').innerHTML=items.map((it,i)=>`
     <tr>
       <td>${it.code}</td>
       <td><input style="width:54px;padding:4px" value="${it.qty}" onchange="items[${i}].qty=Math.max(1,parseInt(this.value||'1',10)||1)"></td>
-      <td class="${it.state||''}" id="st${i}">${it.stateLabel||'listo'}</td>
+      <td class="${it.state||''}">${it.stateLabel||'listo'}</td>
     </tr>`).join('');
 }
 function parseRaw(){
@@ -151,9 +130,8 @@ function parseRaw(){
     let m; while((m=re.exec(raw))) items.push({code:m[2], qty:parseInt(m[1],10)||1});
   }
   if(!items.length){ log('No pude leer códigos. Pegá la línea BVLOAD.'); return; }
-  localStorage.setItem('bv_last_order', JSON.stringify({raw,items,at:Date.now()}));
   renderRows();
-  log(items.length+' artículo(s) leídos. Controlá cantidades y cargá.');
+  log(items.length+' artículo(s) leídos.');
 }
 function addManual(){
   const code=(document.getElementById('addCode').value||'').trim();
@@ -163,45 +141,33 @@ function addManual(){
   document.getElementById('addCode').value='';
   renderRows();
 }
-function loginProveedor(){
-  const clave=(document.getElementById('provPass').value||'').trim();
-  if(!clave){ tab('sesion'); log('Poné la clave de Printech11.'); return; }
-  localStorage.setItem('bv_prov_pass', clave);
-  const f=document.createElement('form');
-  f.method='POST'; f.action='https://www.printech11.com/index.php'; f.target='printechFrame';
-  const a=document.createElement('input'); a.name='clave'; a.value=clave;
-  const b=document.createElement('input'); b.name='enviar'; b.value='Ingresar';
-  f.append(a,b); document.body.appendChild(f); f.submit(); f.remove();
-  log('Sesión enviada al recuadro de la derecha.');
-}
-function verPedido(){ setFrame('https://www.printech11.com/ver_compra.php'); }
 async function cargarTodo(){
   if(!items.length) parseRaw();
   if(!items.length){ log('No hay artículos.'); return; }
+  if(!win || win.closed){
+    win=window.open('https://www.printech11.com/ver_compra.php','printechWin','width=1100,height=800');
+  }
+  if(!win){ log('Permití ventanas emergentes y reintentá.'); return; }
   const comentario=lettersOnly(document.getElementById('comentario').value||'Bonvivant');
-  log('Cargando en Printech11...');
+  log('Cargando en la ventana de Printech11...');
   for(let i=0;i<items.length;i++){
     const it=items[i];
     it.state='wait'; it.stateLabel='cargando'; renderRows();
     const f=document.createElement('form');
     f.method='POST';
     f.action='https://www.printech11.com/agregar_al_carrito.php?cod='+encodeURIComponent(it.code);
-    f.target='printechFrame';
+    f.target='printechWin';
     const c=document.createElement('input'); c.name='cant'; c.value=String(it.qty);
     const n=document.createElement('input'); n.name='comentario'; n.value=comentario;
     f.append(c,n); document.body.appendChild(f); f.submit(); f.remove();
     it.state='ok'; it.stateLabel='cargado'; renderRows();
     log('Cargado '+(i+1)+'/'+items.length+': '+it.code+' x'+it.qty);
-    await sleep(1300);
+    await sleep(1400);
   }
   await sleep(500);
   verPedido();
-  log('Listo. Mirá a la derecha Ver pedido. Si está vacío, logueate en Sesión y volvé a cargar.');
+  log('Listo. Mirá la ventana de Printech11 → Ver pedido. Si está vacío, no habías iniciado sesión ahí.');
 }
-try{
-  const last=JSON.parse(localStorage.getItem('bv_last_order')||'null');
-  if(last&&last.raw) document.getElementById('raw').value=last.raw;
-}catch(e){}
 </script>
 </body>
 </html>
