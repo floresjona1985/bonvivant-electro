@@ -1,0 +1,25 @@
+name: Actualizar catálogo Printech11
+on:
+  schedule:
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests beautifulsoup4
+      - name: Bajar catálogo
+        env:
+          PRINTECH_CLAVE: ${{ secrets.PRINTECH_CLAVE }}
+        run: python actualizar_catalogo.py
+      - name: Guardar cambios
+        run: |
+          git config user.name "catalogo-bot"
+          git config user.email "bot@bonvivant-electro.com.ar"
+          git add products.json
+          git diff --cached --quiet || git commit -m "catalogo automatico"
+          git push
